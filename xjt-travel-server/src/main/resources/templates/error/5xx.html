@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container{
+            display: flex;
+        }
+        .right{
+            flex: 1;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <img th:src="@{/image/500.gif}" alt="" width="300px" height="auto">
+        </div>
+        <div class="right">
+            服务器崩溃了，程序员正在紧急抢修中。。。
+        </div>
+    </div>
+</body>
+</html>

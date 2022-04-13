@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xjt.travel.mapper.TTravelNoteMapper">
+	<select id="getTravelNoteDetail" resultType="map">
+		SELECT
+		  tn.`title`,
+		  tn.`cover_image`,
+		  td.`tn_id`,
+		  td.`publiser_avatar`,
+		  td.`publiser_name`,
+		  td.`publish_time`,
+		  td.`start_time`,
+		  td.`day`,
+		  td.`cost`,
+		  td.`content`
+		FROM
+		  t_travel_note tn
+		  LEFT JOIN t_travelnote_detail td
+		    ON tn.`id`=td.`tn_id`
+		WHERE tn.`id`=#{tn_id}
+	</select>
+	
+	<select id="getNoteByTypeLocation" resultType="map">
+		SELECT
+		  tn.`type`,
+		  tn.`location`,
+		  COUNT(tn.`id`) `num`
+		FROM
+		  t_travel_note AS tn
+		GROUP BY tn.`location` ,tn.`type`
+		ORDER BY COUNT(tn.`id`) DESC
+	</select>
+
+	<insert id="addTravelnote">
+		INSERT INTO t_travel_note(`title`,`cover_image`,`description`,`location`)
+		VALUES(#{title},#{cover_image},#{description},#{location})
+	</insert>
+</mapper>

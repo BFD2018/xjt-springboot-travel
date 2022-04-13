@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xjt.travel.mapper.TMessageMapper">
+	<!--直接给站长的留言（一级）-->
+	<select id="selectLevelOneMessage" resultType="map" parameterType="string">
+		SELECT
+		  m.*,
+		  u.`username`,
+		  u.`nickname`,
+		  u.`avatar`,
+		  u.`telephone`
+		FROM
+		  t_message AS m
+		  LEFT JOIN t_user AS u
+		    ON m.`user_id` = u.`user_id`
+		WHERE m.`parent_id` = #{parent_id}
+	</select>
+	
+	<!--站长给留言者的回复（二级）-->
+	<select id="selectLevelOneReplys" resultType="map" parameterType="string">
+		SELECT
+		  m.*,
+		  u.`username`,
+		  u.`nickname`,
+		  u.`avatar`,
+		  u.`telephone`
+		FROM
+		  t_message AS m
+		  LEFT JOIN t_user AS u
+		    ON m.`user_id` = u.`user_id`
+		WHERE m.`parent_id` = #{parent_id}
+	</select>
+
+</mapper>

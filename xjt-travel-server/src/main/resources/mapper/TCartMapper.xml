@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xjt.travel.mapper.TCartMapper">
+	<select id="selectAllByUserId" resultType="map">
+		SELECT
+		  cart.*,
+		  route.* ,
+		  seller.*
+		FROM
+		  t_cart AS cart
+		  LEFT JOIN t_route AS route
+		    ON cart.`goods_id` = route.`id`
+		  LEFT JOIN t_seller AS seller
+		  ON route.`seller_id` = seller.`seller_id`
+		WHERE cart.`user_id` = #{user_id}
+	</select>
+
+</mapper>

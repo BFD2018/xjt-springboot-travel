@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xjt.travel.mapper.TRouteMapper">
+	<select id="getRouteDetailById" resultType="map">
+		SELECT
+		  t_route.*,
+		  se.`name` AS seller_name,
+		  cate.`name` AS category_name
+		FROM
+		  t_route
+		  LEFT JOIN t_seller AS se
+		    ON t_route.`seller_id` = se.`seller_id`
+		  LEFT JOIN t_category AS cate
+		    ON t_route.`category_id` = cate.`cid`
+		WHERE t_route.`id` = #{id}
+	</select>
+
+	<select id="selectNumGroupByCategory" resultType="map">
+		SELECT
+		  COUNT(route.`id`) AS value,
+		  category.`name`
+		FROM
+		  t_route AS route
+		  LEFT JOIN t_category AS category
+		  ON route.`category_id`=category.`cid`
+		GROUP BY category.`name`
+	</select>
+
+	<select id="selectNumGroupBySeller" resultType="map">
+		SELECT
+		  COUNT(route.`id`) AS num,
+		  seller.`name`
+		FROM
+		  t_route AS route
+		  LEFT JOIN t_seller AS seller
+		  ON route.`seller_id`=seller.`seller_id`
+		GROUP BY route.`seller_id`
+	</select>
+</mapper>

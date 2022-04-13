@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container{
+            display: flex;
+        }
+        .right{
+            flex: 1;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <img th:src="@{/image/404.png}" alt="" width="300px" height="auto">
+        </div>
+        <div class="right">
+            抱歉，你访问的页面不存在。
+            1s后跳转到首页
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xjt.travel.mapper.TUserMapper">
+	<resultMap id="userMap" type="com.xjt.travel.domain.TUser">
+		<id column="user_id" property="user_id"/>
+		<result column="username" property="username"/>
+		<!--角色信息-->
+		<collection property="rolesList" javaType="list" ofType="com.xjt.travel.domain.TRole">
+			<result column="name" property="name"/>
+			<result column="name_zh" property="nameZh"/>
+		</collection>
+	</resultMap>
+	
+	<select id="getRolesByUsername" parameterType="string" resultMap="userMap">
+        SELECT
+		  u.`user_id`,
+		  u.`username`,
+		  r.`name`,
+		  r.`name_zh`
+		FROM
+		  t_user u
+		  LEFT JOIN t_user_role ur
+		    ON u.`user_id`=ur.`user_id`
+		  LEFT JOIN t_role r
+		    ON ur.`role_id`=r.`role_id`
+		WHERE u.`username`= #{username}
+    </select>
+	
+	<select id="findPermsListByRoleId" parameterType="int" resultType="com.xjt.travel.domain.TPerm">
+        SELECT
+		  rp.`role_id`,
+		  p.`perm_id`,
+		  p.`name`
+		FROM
+		  t_role_perm rp
+		  LEFT JOIN t_perm p
+		    ON rp.`perm_id`=p.`perm_id`
+		WHERE rp.`role_id`=#{roleId}
+    </select>
+
+	<!--	通过用户名获取所有权限-->
+	<select id="getAllPermissionsByUsername" resultType="string">
+        SELECT
+		  t_perm.`name`
+		FROM
+		  t_perm
+		WHERE t_perm.`perm_id` IN
+		  (SELECT
+			perm_id
+		  FROM
+			t_role_perm
+		  WHERE t_role_perm.`role_id` =
+			(SELECT
+			  role_id
+			FROM
+			  t_user_role
+			WHERE t_user_role.`user_id` IN
+			  (SELECT
+				user_id
+			  FROM
+				t_user
+			  WHERE t_user.`username` = #{principal})))
+    </select>
+</mapper>

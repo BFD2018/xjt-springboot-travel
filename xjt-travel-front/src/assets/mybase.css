@@ -1,0 +1,105 @@
+.my-left{
+	float: left;
+}
+
+.my-right{
+	float: right;
+}
+
+.my-center{
+	text-align: center;
+	line-height: 100%;
+}
+
+.my-marginLeft10{
+	margin-left: 10px;
+}
+.my-marginLeft5{
+	margin-left: 5px;
+}
+
+.my-marginTop10{
+	margin-top: 10px;
+}
+
+.my-marginTop20{
+	margin-top: 20px;
+}
+
+.my-title{
+	font-size: 26px;
+	font-weight: 500;
+	font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	font-palette: light;
+}
+
+.my-medium-title{
+	font-size: 20px;
+	font-weight: normal;
+	font-family: "Gill Sans", sans-serif;
+}
+.my-medium-title:hover{
+	border-bottom: 2px solid #E93C3F;
+	cursor: pointer;
+}
+
+.my-border-padding{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.my-padding{
+	padding: 5px;
+}
+
+.my-flex{
+	display: flex;
+}
+
+.my-hover1:hover{
+	border-bottom: 2px solid #E93C3F;
+	color: #E93C3F;
+}
+
+.my-divider{
+	height: 5px;
+	width:100%;
+	border-top: 2px solid #ddd;
+}
+
+.my-flex{
+	display: flex;
+	justify-content: space-around;
+}
+.my-flex-span1{
+	flex: 1;
+}
+
+.my-border2-left{
+	border-left: 2px solid skyblue;
+}
+
+.my-font{
+	font-size: 16px;
+	color: white;
+	text-decoration: underline;
+}
+
+.my-border{
+	border: 1px solid #ddd;
+}
+.my-border:hover{
+	border: 2px solid #E93C3F;
+}
+
+.my-middle{
+	text-align: center;
+	margin: 0 auto;
+}
+
+.my-mini-text{
+	font-size: 10px;
+}
