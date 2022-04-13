@@ -13,9 +13,6 @@
 	<version>1.0.0</version>
 	<name>xjt-travel-server</name>
 	<description>Demo project for Spring Boot</description>
-	<properties>
-		<java.version>11</java.version>
-	</properties>
 	
 	<dependencies>
 		<dependency>
@@ -42,6 +39,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 		
 		<!--数据库-->
@@ -79,12 +81,6 @@
 			<version>1.2.70</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-		
 		<!-- redis -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

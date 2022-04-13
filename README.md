@@ -14,7 +14,6 @@
 - [x] fastjson 序列化
 - [x] Redis 缓存
 - [x] shiro 安全框架
-- [x] 
 - [x] easy-captcha 验证码
 - [x] aliyun-oss 对象存储
 - [x] kumo 分词

@@ -2,10 +2,13 @@ server:
   port: 8880
 
 spring:
+  application:
+    name: xjt-travel
+
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/xjt_springboot_travel?serverTimezone=UTC
+    url: jdbc:mysql://localhost:13306/xjt_springboot_travel?serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
   redis:
     port: 6379

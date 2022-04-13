@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <!-- 引入默认得配置文件 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 模块名标识日志名称 -->
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <!-- info日志单文件大小限制 -->
+    <springProperty scope="context" name="logback.fileInfoLog.maxFileSize" source="logback.fileInfoLog.maxFileSize" defaultValue="200MB" />
+    <!-- info日志最大保留时长单位天 -->
+    <springProperty scope="context" name="logback.fileInfoLog.maxHistory" source="logback.fileInfoLog.maxHistory" defaultValue="15" />
+    <!-- info日志文件总大小，超过该大小，旧得即将删除 -->
+    <springProperty scope="context" name="logback.fileInfoLog.totalSizeCap" source="logback.fileInfoLog.totalSizeCap" defaultValue="100GB" />
+
+    <!-- error日志单文件大小限制 -->
+    <springProperty scope="context" name="logback.fileErrorLog.maxFileSize" source="logback.fileErrorLog.maxFileSize" defaultValue="200MB" />
+    <!-- error日志最大保留时长单位天 -->
+    <springProperty scope="context" name="logback.fileErrorLog.maxHistory" source="logback.fileErrorLog.maxHistory" defaultValue="15" />
+    <!-- error日志文件总大小，超过该大小，旧得即将删除 -->
+    <springProperty scope="context" name="logback.fileErrorLog.totalSizeCap" source="logback.fileErrorLog.totalSizeCap" defaultValue="100GB" />
+
+    <!-- http日志单文件大小限制 -->
+    <springProperty scope="context" name="logback.fileHttpLog.maxFileSize" source="logback.fileHttpLog.maxFileSize" defaultValue="200MB" />
+    <!-- http日志最大保留时长单位天 -->
+    <springProperty scope="context" name="logback.fileHttpLog.maxHistory" source="logback.fileHttpLog.maxHistory" defaultValue="15" />
+    <!-- http日志文件总大小，超过该大小，旧得即将删除 -->
+    <springProperty scope="context" name="logback.fileHttpLog.totalSizeCap" source="logback.fileHttpLog.totalSizeCap" defaultValue="100GB" />
+    <!-- 日志目录 -->
+    <springProperty scope="context" name="logback.rootDir" source="logback.rootDir" defaultValue="logs"/>
+    <!-- 控制台输出得日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <!-- 日志文件输出得日志格式 -->
+    <property name="FILE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %t [%c:%L]-%m%n"/>
+    <!-- 控制台输出 -->
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </layout>
+    </appender>
+    <!-- info日志得设定 -->
+    <appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${logback.rootDir}/${springAppName}.log</file>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy" >
+            <!--路径-->
+            <fileNamePattern>${logback.rootDir}/%d{yyyy-MM,aux}/%d{yyyy-MM-dd,aux}/${springAppName}-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxFileSize>${logback.fileInfoLog.maxFileSize}</maxFileSize>
+            <maxHistory>${logback.fileInfoLog.maxHistory}</maxHistory>
+            <totalSizeCap>${logback.fileInfoLog.totalSizeCap}</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 错误日志 -->
+    <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${logback.rootDir}/${springAppName}-error.log</file>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy" >
+            <!--路径-->
+            <fileNamePattern>${logback.rootDir}/%d{yyyy-MM,aux}/%d{yyyy-MM-dd,aux}/${springAppName}-error-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxFileSize>${logback.fileErrorLog.maxFileSize}</maxFileSize>
+            <maxHistory>${logback.fileErrorLog.maxHistory}</maxHistory>
+            <totalSizeCap>${logback.fileErrorLog.totalSizeCap}</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+
+    <!-- http日志 -->
+    <appender name="httpInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %m%n</pattern>
+        </encoder>
+        <file>${logback.rootDir}/${springAppName}-http.log</file>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--路径-->
+            <fileNamePattern>${logback.rootDir}/%d{yyyy-MM,aux}/%d{yyyy-MM-dd,aux}/${springAppName}-http-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxFileSize>${logback.fileHttpLog.maxFileSize}</maxFileSize>
+            <maxHistory>${logback.fileHttpLog.maxHistory}</maxHistory>
+            <totalSizeCap>${logback.fileHttpLog.totalSizeCap}</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ASYNC_consoleLog" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="consoleLog"/>
+    </appender>
+    <appender name="ASYNC_fileInfoLog" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="fileInfoLog"/>
+    </appender>
+    <appender name="ASYNC_fileErrorLog" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="fileErrorLog"/>
+    </appender>
+    <appender name="ASYNC_httpInfoLog" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="httpInfoLog"/>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="ASYNC_consoleLog" />
+        <appender-ref ref="ASYNC_fileInfoLog" />
+        <appender-ref ref="ASYNC_fileErrorLog" />
+    </root>
+    <logger name="log_http" additivity="false" level="INFO">
+        <appender-ref ref="ASYNC_httpInfoLog"/>
+    </logger>
+
+</configuration>
