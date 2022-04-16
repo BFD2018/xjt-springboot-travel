@@ -1,0 +1,6 @@
+#//将.js结尾的文件当做java文件
+*.js linguist-language=java
+#将.css结尾的文件当做java文件
+*.css linguist-language=java
+#将.html结尾的文件当做java文件
+*.html linguist-language=java
