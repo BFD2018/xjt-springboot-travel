@@ -14,3 +14,5 @@ gen
 **/cachedata
 **/target
 **/*.iml
+
+**/mySql/

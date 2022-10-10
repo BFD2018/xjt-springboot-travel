@@ -1,5 +1,7 @@
 package com.xjt.travel.service.impl;
 
+import com.xjt.travel.domain.TRole;
+import com.xjt.travel.domain.TUser;
 import com.xjt.travel.mapper.TRoleMapper;
 import com.xjt.travel.service.TRoleService;
 import com.xjt.travel.utils.RespBean;
@@ -33,5 +35,17 @@ public class TRoleServiceImpl implements TRoleService {
         }else{
             return RespBean.success("ok");
         }
+    }
+
+    @Override
+    public int assignRoleByUserId(TUser tUser) {
+        List<TRole> rolesList = tUser.getRolesList();
+        for (TRole tRole : rolesList) {
+            Integer userId = tUser.getUserId();
+            String roleName = tRole.getName();
+            roleMapper.assignUserRole(userId,roleName);
+        }
+
+        return 0;
     }
 }

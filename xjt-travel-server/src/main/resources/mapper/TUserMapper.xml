@@ -5,7 +5,7 @@
 
 <mapper namespace="com.xjt.travel.mapper.TUserMapper">
 	<resultMap id="userMap" type="com.xjt.travel.domain.TUser">
-		<id column="user_id" property="user_id"/>
+		<id column="user_id" property="userId"/>
 		<result column="username" property="username"/>
 		<!--角色信息-->
 		<collection property="rolesList" javaType="list" ofType="com.xjt.travel.domain.TRole">
@@ -13,8 +13,8 @@
 			<result column="name_zh" property="nameZh"/>
 		</collection>
 	</resultMap>
-	
-	<select id="getRolesByUsername" parameterType="string" resultMap="userMap">
+
+    <select id="getRolesByUsername" parameterType="string" resultMap="userMap">
         SELECT
 		  u.`user_id`,
 		  u.`username`,

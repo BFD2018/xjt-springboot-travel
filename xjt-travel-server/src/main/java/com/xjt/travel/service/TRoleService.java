@@ -1,5 +1,6 @@
 package com.xjt.travel.service;
 
+import com.xjt.travel.domain.TUser;
 import com.xjt.travel.utils.RespBean;
 
 /**
@@ -12,4 +13,6 @@ public interface TRoleService {
     RespBean getAllRolePerms();
 
     RespBean deleteRoleById(String id);
+
+    int assignRoleByUserId(TUser tUser);
 }

@@ -17,4 +17,8 @@
 		  LEFT JOIN t_perm AS p
 		    ON rp.`perm_id` = p.`perm_id`
 	</select>
+
+	<insert id="assignUserRole">
+		INSERT INTO `t_user_role`(user_id,role_id) VALUE(#{userId},(SELECT role_id FROM `t_role` WHERE `t_role`.`name`=#{roleName}))
+	</insert>
 </mapper>

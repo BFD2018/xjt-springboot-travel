@@ -20,7 +20,7 @@
 
 项目结构图：
 
-![1646317976186](typora-assets/1646317976186.png)
+![1646317976186](https://dd-static.jd.com/ddimg/jfs/t1/154124/8/27322/61054/6343c6d6E5c4e5cda/9fe677eef3e30908.png)
 
 ### Shiro认证和授权
 

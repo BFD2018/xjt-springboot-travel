@@ -64,7 +64,7 @@
     </div>
 
     <div class="middle-container">
-      <router-view :inputSearchKey="inputSearchKey" ref="childComp"/>
+      <router-view :inputSearchKey="inputSearchKey" ref="childComp" :key="routerViewKey"/>
     </div>
 
     <div id="footer-outer">
@@ -107,6 +107,11 @@
       return {
         inputSearchKey: '',
         navActiveIndex:"/home",
+      }
+    },
+    computed: {
+      routerViewKey() {
+        return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
       }
     },
     methods: {
