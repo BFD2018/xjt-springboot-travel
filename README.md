@@ -2,7 +2,7 @@
 
 项目功能介绍：https://www.bilibili.com/video/BV18Z4y1r7Ut
 
-## SpringBoot服务端
+## 后台服务端
 
 技术栈：
 
@@ -20,7 +20,7 @@
 
 项目结构图：
 
-![1646317976186](https://dd-static.jd.com/ddimg/jfs/t1/154124/8/27322/61054/6343c6d6E5c4e5cda/9fe677eef3e30908.png)
+![9fe677eef3e30908](/typora-assets/9fe677eef3e30908.png)
 
 ### Shiro认证和授权
 
@@ -30,33 +30,33 @@ Controller层，用户登录接口（用户名、密码、验证码）
 
 ```java
 @PostMapping("/toLogin")
-    public RespBean userLogin(@RequestBody HashMap<String, String> params, HttpSession session) {
-        String username = params.get("username");
-        String password = params.get("password");
-        String verify_code = params.get("verify_code");
+public RespBean userLogin(@RequestBody HashMap<String, String> params, HttpSession session) {
+    String username = params.get("username");
+    String password = params.get("password");
+    String verify_code = params.get("verify_code");
 
-        //1、比较验证码
-        String session_verify = (String) session.getAttribute("verify_code");
-        log.warn("session_verify===>" + session_verify);
-        if (StringUtils.hasLength(verify_code) && session_verify.equalsIgnoreCase(verify_code)) {
-            try {
-                Subject subject = SecurityUtils.getSubject();
-                subject.login(new UsernamePasswordToken(username, password));
+    //1、比较验证码
+    String session_verify = (String) session.getAttribute("verify_code");
+    log.warn("session_verify===>" + session_verify);
+    if (StringUtils.hasLength(verify_code) && session_verify.equalsIgnoreCase(verify_code)) {
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            subject.login(new UsernamePasswordToken(username, password));
 
-                //从session中获取认证的TUser对象 返回给前端
-                TUser user = (TUser) session.getAttribute("USER_SESSION");
-                return RespBean.success("ok", user);
-            } catch (UnknownAccountException e) {
-                throw new LoginException("用户名不存在！");
-            } catch (IncorrectCredentialsException e) {
-                throw new LoginException("密码错误！");
-            } catch (Exception e) {
-                throw new LoginException(e.getMessage());
-            }
-        } else {
-            throw new LoginException("验证码错误！");
+            //从session中获取认证的TUser对象 返回给前端
+            TUser user = (TUser) session.getAttribute("USER_SESSION");
+            return RespBean.success("ok", user);
+        } catch (UnknownAccountException e) {
+            throw new LoginException("用户名不存在！");
+        } catch (IncorrectCredentialsException e) {
+            throw new LoginException("密码错误！");
+        } catch (Exception e) {
+            throw new LoginException(e.getMessage());
         }
+    } else {
+        throw new LoginException("验证码错误！");
     }
+}
 ```
 
 1、首先比较验证码是否相同
@@ -67,11 +67,9 @@ Controller层，用户登录接口（用户名、密码、验证码）
 
 ### 多条件查询
 
-## 后台管理员
+## 后台管理端
 
-后端样式主要参考了 [element-ui](https://element.eleme.io/#/zh-CN) 和 [EL-ADMIN](https://el-admin.vip/)
-
-技术栈：
+### 技术栈
 
 - [x] Vue-Cli3 + vue-router + vuex
 - [x] axios 网络请求
@@ -91,7 +89,99 @@ Controller层，用户登录接口（用户名、密码、验证码）
 - [x] vue-count-to 动态数字
 - [x] mavon-editor markdown文本编辑器
 
+### 首页
+
+![image-20221010153538033](/typora-assets/image-20221010153538033.png)
+
+### 游记管理
+
+#### 旅行游记
+
+![image-20221010153607338](/typora-assets/image-20221010153607338.png)
+
+#### 新增游记
+
+![image-20221010153641854](/typora-assets/image-20221010153641854.png)
+
+### 系统管理
+
+#### 用户管理
+
+![image-20221010153654069](/typora-assets/image-20221010153654069.png)
+
+#### 角色&权限
+
+该功能未完成（后续完善...）
+
+![image-20221010153723556](/typora-assets/image-20221010153723556.png)
+
+### 旅行家管理
+
+#### 旅行家列表
+
+![image-20221010153755181](/typora-assets/image-20221010153755181.png)
+
+#### 新增旅行家
+
+![image-20221010153818099](/typora-assets/image-20221010153818099.png)
+
+#### 旅行家文章列表
+
+![image-20221010153835418](/typora-assets/image-20221010153835418.png)
+
+#### 新增旅行家文章
+
+![image-20221010153849703](/typora-assets/image-20221010153849703.png)
+
+### 路线管理
+
+#### 路线列表
+
+![image-20221010153910994](/typora-assets/image-20221010153910994.png)
+
+#### 新增路线
+
+![image-20221010153947856](/typora-assets/image-20221010153947856.png)
+
+#### 旅行社
+
+![image-20221010154001057](/typora-assets/image-20221010154001057.png)
+
+### 组件管理
+
+这部分是elAdmin框架自带的，小伙伴们写代码可以参考规范哦
+
+<table>
+    <tr>
+        <td>
+            <img src="/typora-assets/image-20221010154348910.png"/>
+        </td>
+        <td>
+            <img src="/typora-assets/image-20221010154357952.png"/>
+        </td>
+    </tr>    
+    <tr>
+        <td>
+            <img src="/typora-assets/image-20221010154407701.png"/>
+        </td>
+        <td>
+            <img src="/typora-assets/image-20221010154415387.png"/>
+        </td>
+    </tr>    
+    <tr>
+        <td>
+            <img src="/typora-assets/image-20221010154423376.png"/>
+        </td>
+    </tr>    
+</table>
+### 关于我
+
+![image-20221010154643361](/typora-assets/image-20221010154643361.png)
+
 ## 客户端
+
+### 技术栈
+
 - [x] Vue-Cli3 + vue-router + vuex
 - [x] axios 网络请求
 - [x] element-ui
@@ -105,3 +195,34 @@ Controller层，用户登录接口（用户名、密码、验证码）
 - [x] wangeditor 富文本编辑器
 - [x] less@4.1.1 + less-loader@6.0.0  写Css样式
 
+### 登录页
+
+![image-20221010152508335](/typora-assets/image-20221010152508335.png)
+
+### 注册页
+
+![image-20221010152525082](/typora-assets/image-20221010152525082.png)
+
+注册登录演示：
+
+![111](/typora-assets/111.gif)
+
+### 首页
+
+![image-20221010152602758](/typora-assets/image-20221010152602758.png)
+
+### 旅行家专栏页
+
+![image-20221010152941051](/typora-assets/image-20221010152941051.png)
+
+### 去旅行页
+
+![image-20221010153000243](/typora-assets/image-20221010153000243.png)
+
+### 购物车页
+
+![image-20221010153014954](/typora-assets/image-20221010153014954.png)
+
+### 关于我页
+
+![image-20221010153033842](/typora-assets/image-20221010153033842.png)

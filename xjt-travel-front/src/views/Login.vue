@@ -98,7 +98,7 @@ export default {
       }
     };
   },
-  created() {
+  mounted() {
     this.updateCaptcha()
   },
   methods: {

@@ -252,9 +252,9 @@
 			}
 
 			.home-pagination{
-				position: absolute;
-				left: 0;
-				bottom: 0;
+				//position: absolute;
+				//left: 0;
+				//bottom: 0;
 				border: 1px solid #ddd;
 				padding: 10px;
 				border-radius: 5px;
